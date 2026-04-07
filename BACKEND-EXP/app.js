@@ -6,6 +6,10 @@ app.use(express.json());
 const userRoutes = require("./src/routes/userRoutes");
 app.use("/user", userRoutes);
 
+const expCategoryRoutes = require("./src/routes/ExpCategoryRoutes")
+app.use("/expCat",expCategoryRoutes)
+
+
 const DBConnection = require("./src/utils/DBConnection");
 DBConnection();
 
