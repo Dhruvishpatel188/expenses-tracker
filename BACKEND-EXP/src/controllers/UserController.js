@@ -82,10 +82,18 @@ const loginUser = async(req,res)=>{
           message:"user not found.."
         })
       }
-      }catch(err){
-        
-      }
+      
+
+
+   }catch(err){
+
+
+
+   }
+
+
 }
+
 module.exports = {
   createUser,
   getAllUsers,

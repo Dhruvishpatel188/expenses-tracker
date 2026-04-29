@@ -30,5 +30,5 @@ const expenseSchema = new Schema({
         type:String,
         enum:["UPI","CASH","CARD","CHECK","EMI"]
     },
-})
+},{timestamps:true})
 module.exports = mongoose.model("expense",expenseSchema)

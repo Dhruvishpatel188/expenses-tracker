@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Login } from "../common/Login"
-import { UserNavbar } from "../user/UserNavbar"
-import { ExpenseDashboard } from "../user/ExpenseDashboard"
-import { AddCategory } from "../user/AddCategory"
-import { GetMyCategories } from "../user/GetMyCategories"
+import { UserNavbar } from "../User/UserNavbar"
+import { ExpenseDashboard } from "../User/ExpenseDashboard"
+import { AddCategory } from "../User/AddCategory"
+import { GetMyCategories } from "../User/GetMyCategories"
 
 const AppRoutes = ()=>{
 

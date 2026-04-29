@@ -4,6 +4,7 @@ const authMiddleware = (req, res, next) => {
   //token --> rrq.headers
   //token should be bearer token..
   const token = req.headers.authorization;
+  console.log(token)
   if (token) {
     if (token.startsWith("Bearer ")) {
       //Bearer jas;sojsaiomnsuapisagoias;sajhuoashsailhas;oasjaso
