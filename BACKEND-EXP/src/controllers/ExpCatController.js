@@ -1,3 +1,4 @@
+const req = require("express/lib/request")
 const expCategory = require("../models/ExpenseCategoryModel")
 const createExpenseCategory = async(req,res)=>{
 
@@ -20,7 +21,6 @@ const createExpenseCategory = async(req,res)=>{
 
 
 
-
 }
 
 const getExpensecategoriesByUserId = async(req,res)=>{
@@ -32,26 +32,27 @@ const getExpensecategoriesByUserId = async(req,res)=>{
     })
 
 }
-const deleteMyCategory = async(req,res)=>{
-    await expCategory.findByIdAndDelete(req.params.id)
 
-    try
-    {
-        res.status(201).json({
-            message:"category deleted successfully",
-            data:expCategory
+const deleteMyCategory = async(req,res)=>{
+
+    const catid = req.params.id
+    try{
+
+        await expCategory.findByIdAndDelete(catid) //internally findOneAndDelete
+        res.status(200).json({
+            message:"cat deleted.."
+        })
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({
+            message:"error while deleting category",
+            err:err
         })
     }
-    catch(err)
-    {
-        res.status(500).json({
-        message:"category is not deleted",
-        err:err
-    })
-    } 
-} 
 
 
+}
 module.exports = {
     createExpenseCategory,getExpensecategoriesByUserId,deleteMyCategory
 }

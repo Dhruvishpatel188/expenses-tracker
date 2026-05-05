@@ -1,7 +1,9 @@
-//import axios from 'axios';
+// import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import axios from "../api/axiosInstance"
 import { useNavigate } from 'react-router-dom';
+
+
 
 export const Login = () => {
   const {
@@ -17,17 +19,15 @@ export const Login = () => {
     console.log('Login Data:', data);
     try {
       const res = await axios.post("/user/login",data)
-      console.log(res.data)
+      console.log(res)
       // Store token in localStorage (standard for JWT Bearer tokens)
-      if (res.data && res.data.token) {
-        console.log(res.data.token)
-        localStorage.setItem("token", res.data.token);
-        
-        // Fallback to cookie without `secure` so it works on localhost HTTP
-        document.cookie = `token=${res.data.token}; path=/; sameSite=Lax`;
-      }
+      console.log(res.data.token)
+      localStorage.setItem("token", res.data.token);
+      
+      // Fallback to cookie without `secure` so it works on localhost HTTP
+      document.cookie = `token=${res.data.token}; path=/; sameSite=Lax`;
 
-      if(res.status===200){
+      if(res.status==200){
         //toster..
         navigate("/")
       }
@@ -35,8 +35,8 @@ export const Login = () => {
         alert("login failed..")
       }
     } catch (error) {
-      console.error("Login Error:", error);
-      alert(error.response?.data?.message || "Login failed. Please try again.");
+      console.error("Login error:", error);
+      alert("Login failed! Please check your email and password.");
     }
   };
 

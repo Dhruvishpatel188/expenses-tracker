@@ -28,7 +28,7 @@ const expenseSchema = new Schema({
     },
     paymentMode:{
         type:String,
-        enum:["UPI","CASH","CARD","CHECK","EMI"]
+        enum:["UPI","CASH","CARD","CHEQUE","EMI"]
     },
 },{timestamps:true})
 module.exports = mongoose.model("expense",expenseSchema)

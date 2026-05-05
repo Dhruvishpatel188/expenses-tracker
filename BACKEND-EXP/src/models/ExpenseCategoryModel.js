@@ -14,4 +14,16 @@ const expCategorySchema = new Schema({
     }
 
 })
+
+expCategorySchema.pre("findOneAndDelete", async function(next) {
+    const category = await this.model.findOne(this.getFilter());
+
+    if (category) {
+        await mongoose.model("expense").deleteMany({
+            expCat: category._id
+        });
+    }
+
+    
+});
 module.exports = mongoose.model("expCategory",expCategorySchema)

@@ -25,56 +25,43 @@ export const AddCategory = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(circle_at_top,_#1e3a8a,_#0f172a)]">
+    <div className="container mx-auto p-4 flex justify-center items-center min-h-[calc(100vh-80px)]">
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-xl border border-stone-100 overflow-hidden transform transition-all duration-300 hover:shadow-2xl">
+        <div className="bg-stone-900 p-8 text-white text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-[#d4af37]">Create Category</h1>
+          <p className="text-stone-400 mt-2 text-sm italic">Organize your expenses with style</p>
+        </div>
 
-      {/* Glass Card */}
-      <div className="backdrop-blur-lg bg-white/10 border border-white/20 p-10 rounded-3xl shadow-2xl w-[380px] text-white">
-
-        <h1 className="text-3xl font-semibold text-center mb-8 tracking-wide">
-          + New Category
-        </h1>
-
-        <form onSubmit={handleSubmit(submitHandler)} className="space-y-6">
-
-          {/* Floating Input */}
-          <div className="relative">
-            <input
-              type="text"
-              {...register("catName", { required: true })}
-              placeholder=" "
-              className="peer w-full px-4 py-3 bg-transparent border border-gray-400 rounded-lg focus:outline-none focus:border-blue-400"
-            />
-            <label className="absolute left-3 top-3 text-gray-300 text-sm transition-all 
-              peer-placeholder-shown:top-3 peer-placeholder-shown:text-base 
-              peer-focus:top-[-10px] peer-focus:text-sm peer-focus:text-blue-400 bg-transparent px-1">
-              Category Name
-            </label>
+        <form onSubmit={handleSubmit(submitHandler)} className="p-8 space-y-6">
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-stone-700 ml-1 uppercase tracking-wider">Category Name</label>
+            <div className="relative group">
+              <input
+                type="text"
+                {...register("catName", { required: true })}
+                placeholder="e.g. Travel, Food, Health"
+                className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-stone-900 transition-all duration-200 group-hover:border-stone-300"
+              />
+            </div>
           </div>
 
-          <div className="relative">
-            <input
-              type="text"
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-stone-700 ml-1 uppercase tracking-wider">Description</label>
+            <textarea
               {...register("description")}
-              placeholder=" "
-              className="peer w-full px-4 py-3 bg-transparent border border-gray-400 rounded-lg focus:outline-none focus:border-purple-400"
-            />
-            <label className="absolute left-3 top-3 text-gray-300 text-sm transition-all 
-              peer-placeholder-shown:top-3 peer-placeholder-shown:text-base 
-              peer-focus:top-[-10px] peer-focus:text-sm peer-focus:text-purple-400 px-1">
-              Description
-            </label>
+              placeholder="Add some details..."
+              rows="3"
+              className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-stone-900 transition-all duration-200 hover:border-stone-300"
+            ></textarea>
           </div>
 
-          {/* Button */}
           <button
             type="submit"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-105 transition-all duration-300 font-medium shadow-lg"
+            className="w-full py-4 bg-stone-900 text-[#d4af37] rounded-xl font-bold text-lg shadow-lg hover:bg-stone-800 active:scale-[0.98] transition-all duration-200 flex items-center justify-center space-x-2"
           >
-            Create Category 🚀
+            <span>Create Category</span>
           </button>
-
         </form>
-
       </div>
     </div>
   )
