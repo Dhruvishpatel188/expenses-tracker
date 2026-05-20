@@ -30,5 +30,13 @@ const expenseSchema = new Schema({
         type:String,
         enum:["UPI","CASH","CARD","CHEQUE","EMI"]
     },
+    income:{
+        type:Number
+    },
+    incomeCategory:{
+        type:Schema.Types.ObjectId,
+        ref:"incomeCategory"
+    },
+    
 },{timestamps:true})
 module.exports = mongoose.model("expense",expenseSchema)

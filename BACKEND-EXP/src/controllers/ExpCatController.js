@@ -1,4 +1,3 @@
-const req = require("express/lib/request")
 const expCategory = require("../models/ExpenseCategoryModel")
 const createExpenseCategory = async(req,res)=>{
 
@@ -11,26 +10,30 @@ const createExpenseCategory = async(req,res)=>{
             message:"expCat saved..",
             cat:savedExp
         })
-    }catch(err){
-        res.status(201).json({
-            message:"errow while saving expCat ",
-            err:err
+    } catch (err) {
+        res.status(500).json({
+            message: "Error while saving expCat",
+            err: err
         })
-
     }
 
 
 
 }
 
-const getExpensecategoriesByUserId = async(req,res)=>{
-
-    const userId = req.user._id;
-    const categories = await expCategory.find({userId:userId})
-    res.status(200).json({
-        data:categories
-    })
-
+const getExpensecategoriesByUserId = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const categories = await expCategory.find({ userId: userId })
+        res.status(200).json({
+            data: categories
+        })
+    } catch (err) {
+        res.status(500).json({
+            message: "Error while fetching categories",
+            err: err
+        })
+    }
 }
 
 const deleteMyCategory = async(req,res)=>{

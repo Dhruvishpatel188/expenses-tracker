@@ -3,30 +3,82 @@ import axios from '../api/axiosInstance'
 
 export const GetMyCategories = () => {
   const [categories, setCategories] = useState([])
+  const [selectedCategory, setselectedCategory] = useState("income")
 
     const getAllCategories = async()=>{
         const res = await axios.get("/expCat/userCategory") //token
         setCategories(res.data.data)
     }
+
+    const getAllIncomeCategories = async()=>{
+      const res = await axios.get("/incomeCat/incomeCategory") //token
+        if (res.data && Array.isArray(res.data.data)) {
+            setCategories(res.data.data)
+        } else {
+            setCategories([])
+        }
+    }
+
     useEffect(()=>{
-        getAllCategories()
-    },[])
+        if(selectedCategory == "expense"){
+            getAllCategories()
+        }else{
+            getAllIncomeCategories()
+        }
+    },[selectedCategory])
 
     const deleteCategory = async(id)=>{
       try{
-      const res = await axios.delete(`/expCat/deletemycat/${id}`) //token auto intercpetor..
-      if(res.status==200){
-        //toastr
-        getAllCategories()
-      }
-      }catch(err){
+        const url = selectedCategory === "expense" 
+          ? `/expCat/deletemycat/${id}` 
+          : `/incomeCat/deleteincomecat/${id}`
+        
+        const res = await axios.delete(url)
+        if(res.status==200){
+          if(selectedCategory === "expense"){
+            getAllCategories()
+          } else {
+            getAllIncomeCategories()
+          }
+        }
+      } catch (err) {
+        console.error(err)
         alert("error while delete cat..")
       }
     }
     
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8 text-stone-800 tracking-tight uppercase">My Categories</h1>
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
+        <div>
+          <h1 className="text-4xl font-black text-stone-900 tracking-tighter uppercase">My Categories</h1>
+          <p className="text-stone-400 mt-1 italic">Organize your finances with bespoke categories</p>
+        </div>
+
+        <div className="flex items-center bg-stone-100 p-1.5 rounded-2xl shadow-inner">
+          <button
+            onClick={() => setselectedCategory("expense")}
+            className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-[0.2em] transition-all duration-300 ${
+              selectedCategory === "expense"
+                ? "bg-white text-stone-900 shadow-sm scale-100"
+                : "text-stone-400 hover:text-stone-600 scale-95"
+            }`}
+          >
+            Expenses
+          </button>
+          <button
+            onClick={() => setselectedCategory("income")}
+            className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-[0.2em] transition-all duration-300 ${
+              selectedCategory === "income"
+                ? "bg-white text-stone-900 shadow-sm scale-100"
+                : "text-stone-400 hover:text-stone-600 scale-95"
+            }`}
+          >
+            Income
+          </button>
+        </div>
+      </div>
+
 
       {categories && categories.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

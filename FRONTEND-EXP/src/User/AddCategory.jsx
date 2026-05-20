@@ -8,21 +8,25 @@ export const AddCategory = () => {
 
   const submitHandler = async (data) => {
     try {
-      const res = await axios.post("/expCat", data)
-
-      if (res.status === 201 || res.status === 200) {
-        alert("Category Added Successfully ✅")
-        reset()
+      if (data.type === "expense") {
+        const res = await axios.post("/expCat/", data)
+        if (res.status === 201) {
+          alert("Expense Category Added Successfully ✅")
+          reset()
+        }
+      } else if (data.type === "income") {
+        const res = await axios.post("/incomeCat/", data)
+        if (res.status === 201) {
+          alert("Income Category Added Successfully ✅")
+          reset()
+        }
       }
-
     } catch (error) {
-      if (error.response?.status === 404) {
-        alert("API Not Found ❌")
-      } else {
-        alert("Something went wrong ❌")
-      }
+      console.error(error)
+      alert("Error adding category ❌")
     }
   }
+  
 
   return (
     <div className="container mx-auto p-4 flex justify-center items-center min-h-[calc(100vh-80px)]">
@@ -33,6 +37,35 @@ export const AddCategory = () => {
         </div>
 
         <form onSubmit={handleSubmit(submitHandler)} className="p-8 space-y-6">
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-stone-700 ml-1 uppercase tracking-wider">Category Type</label>
+            <div className="flex space-x-4">
+              <label className="flex-1">
+                <input
+                  type="radio"
+                  value="expense"
+                  {...register("type", { required: true })}
+                  className="hidden peer"
+                  defaultChecked
+                />
+                <div className="text-center py-2 px-4 rounded-xl border border-stone-200 peer-checked:bg-stone-900 peer-checked:text-white cursor-pointer transition-all">
+                  Expense
+                </div>
+              </label>
+              <label className="flex-1">
+                <input
+                  type="radio"
+                  value="income"
+                  {...register("type", { required: true })}
+                  className="hidden peer"
+                />
+                <div className="text-center py-2 px-4 rounded-xl border border-stone-200 peer-checked:bg-green-600 peer-checked:text-white cursor-pointer transition-all">
+                  Income
+                </div>
+              </label>
+            </div>
+          </div>
+
           <div className="space-y-2">
             <label className="text-sm font-semibold text-stone-700 ml-1 uppercase tracking-wider">Category Name</label>
             <div className="relative group">

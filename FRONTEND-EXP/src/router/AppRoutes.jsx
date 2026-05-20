@@ -6,6 +6,7 @@ import { AddCategory } from "../User/AddCategory"
 import { GetMyCategories } from "../User/GetMyCategories"
 import {AddExpense} from "../User/AddExpense"
 import {MyExpenses} from "../User/MyExpenses"
+import {Report} from "../User/Report"
 
 const AppRoutes = ()=>{
 
@@ -36,6 +37,10 @@ const AppRoutes = ()=>{
                 {
                     path:"my-expenses",
                     element:<MyExpenses/>
+                },
+                {
+                    path:"reports",
+                    element:<Report/>
                 }
             ]
         }

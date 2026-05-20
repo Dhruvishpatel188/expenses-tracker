@@ -13,6 +13,8 @@ export const UserNavbar = () => {
     { name: 'Profile', path: 'profile' },
     { name: 'Settings', path: 'settings' },
     { name: 'My-expenses', path: 'my-expenses' },
+    { name: 'reports', path: 'reports' },
+
 
   ];
 
